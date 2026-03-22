@@ -15,10 +15,10 @@ public class Character
 
     public int Level { get; set; }
 
-    // Relacja 1..N z Guild
+   
     public int? GuildId { get; set; }
     public Guild? Guild { get; set; }
 
-    // Relacja N..M z Quest
+    
     public List<CharacterQuest> CharacterQuests { get; set; } = new();
 }

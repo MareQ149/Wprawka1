@@ -10,6 +10,6 @@ public class Quest
     [MaxLength(500)]
     public string? Description { get; set; }
 
-    // Relacja N..M z Character
+    
     public List<CharacterQuest> CharacterQuests { get; set; } = new();
 }

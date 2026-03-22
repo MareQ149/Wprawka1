@@ -10,6 +10,5 @@ public class Guild
     [MaxLength(200)]
     public string? Description { get; set; }
 
-    // Relacja 1..N: Guild -> Characters
     public List<Character> Members { get; set; } = new();
 }
