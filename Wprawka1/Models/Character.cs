@@ -1,20 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Wprawka1.Models
+
+public class Character
 {
-    public class Character
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        
-        public string Name { get; set; } = null!;
+    [Required]
+    [MaxLength(50)]
+    public string Name { get; set; } = null!;
 
-        
-        public string Description { get; set; }
+    [MaxLength(200)]
+    public string Description { get; set; }
 
-        
-        public string Class { get; set; }
+    [MaxLength(50)]
+    public string Class { get; set; }
 
-        public int Level { get; set; }
-    }
+    public int Level { get; set; }
 }
