@@ -1,0 +1,62 @@
+# Fantasy RPG - Instrukcja testowania aplikacji
+
+## 1️⃣ Uruchomienie aplikacji
+1. Otwórz projekt w Visual Studio lub przez terminal.  
+2. Sprawdź `appsettings.json` – connection string powinien wskazywać na lokalną bazę danych.  
+3. Uruchom aplikację (F5 w Visual Studio lub `dotnet run` w terminalu).  
+4. Otwórz przeglądarkę i przejdź na:  localhost:<PORT>
+---
+
+## 2️⃣ Strona główna
+- Wyświetla listę wszystkich postaci (Character).  
+- Możliwość filtrowania po klasie i gildii.  
+- Dostępne dwa przyciski:  
+- **Postacie** → `/Characters`  
+- **Gildie** → `/Guilds`  
+
+---
+
+## 3️⃣ Zarządzanie postaciami (CRUD)
+Przejdź do strony `/Characters`:  
+
+1. **Create** – utwórz nową postać:  
+- Wypełnij pola `Name`, `Description`, `Class`, `Level`.  
+- Wybierz gildię z listy (opcjonalnie).  
+- Kliknij „Create”.  
+- Walidacja: jeśli wpiszesz pustą nazwę lub Level poza zakresem 1–100, pojawi się komunikat.  
+
+2. **Read / Details** – kliknij „Szczegóły” przy wybranej postaci.  
+
+3. **Edit** – kliknij „Edytuj”, zmień dane i zapisz.  
+
+4. **Delete** – kliknij „Usuń” i potwierdź.  
+
+---
+
+## 4️⃣ Zarządzanie gildiami
+Przejdź do `/Guilds`:  
+- Możesz tworzyć, edytować i usuwać gildie.  
+- Postacie mogą być przypisane do gildii w formularzu `Create/Edit` Characters.  
+
+---
+
+## 5️⃣ Walidacja danych
+- `Name` i `Class` – wymagane, max 50 znaków.  
+- `Description` – max 200 znaków.  
+- `Level` – liczba całkowita w zakresie 1–100.  
+- Dropdown `GuildId` – zapisuje relację z postacią.  
+- Walidacja działa po stronie klienta i serwera.  
+
+---
+
+## 6️⃣ Filtrowanie danych
+- Na stronie głównej możesz filtrować postacie:  
+- Po klasie (`Class`) wpisując nazwę klasy.  
+- Po gildii (`Guild`) wybierając z listy.  
+- Lista odświeża się po kliknięciu „Filtruj”.  
+
+---
+
+## 7️⃣ Podsumowanie
+- Aplikacja jest w pełni funkcjonalna: CRUD dla Characters i Guilds, obsługa relacji, walidacja danych, filtrowanie i czytelna prezentacja danych.  
+- Testowanie polega na przechodzeniu przez wszystkie akcje CRUD i sprawdzeniu poprawności danych, walidacji oraz filtrów.
