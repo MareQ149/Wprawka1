@@ -2,6 +2,10 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 
 <h2>Lista postaci</h2>
+<div class="mb-3">
+    <a asp-controller="Characters" asp-action="Index" class="btn btn-primary">Postacie</a>
+    <a asp-controller="Guilds" asp-action="Index" class="btn btn-secondary">Gildie</a>
+</div>
 
 <form method="get" class="mb-3">
     <div class="form-group">
@@ -30,7 +34,7 @@
             <th>Class</th>
             <th>Level</th>
             <th>Guild</th>
-            <th>Akcje</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -41,11 +45,7 @@
                 <td>@character.Class</td>
                 <td>@character.Level</td>
                 <td>@character.Guild?.Name</td>
-                <td>
-                    <a asp-controller="Characters" asp-action="Edit" asp-route-id="@character.Id">Edytuj</a> |
-                    <a asp-controller="Characters" asp-action="Details" asp-route-id="@character.Id">Szczegóły</a> |
-                    <a asp-controller="Characters" asp-action="Delete" asp-route-id="@character.Id">Usuń</a>
-                </td>
+                
             </tr>
         }
     </tbody>
