@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +16,18 @@ namespace Wprawka1.Controllers
             _context = context;
         }
 
+        // 🔐 CHECK LOGIN
+        private bool IsLoggedIn()
+        {
+            return Request.Cookies["UserLogin"] != null;
+        }
+
         // GET: Characters
         public async Task<IActionResult> Index()
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             var appDbContext = _context.Characters.Include(c => c.Guild);
             return View(await appDbContext.ToListAsync());
         }
@@ -27,18 +35,18 @@ namespace Wprawka1.Controllers
         // GET: Characters/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var character = await _context.Characters
                 .Include(c => c.Guild)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (character == null)
-            {
                 return NotFound();
-            }
 
             return View(character);
         }
@@ -46,23 +54,28 @@ namespace Wprawka1.Controllers
         // GET: Characters/Create
         public IActionResult Create()
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             ViewData["GuildId"] = new SelectList(_context.Guilds, "Id", "Name");
             return View();
         }
 
         // POST: Characters/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Class,Level,GuildId")] Character character)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             if (ModelState.IsValid)
             {
                 _context.Add(character);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["GuildId"] = new SelectList(_context.Guilds, "Id", "Name", character.GuildId);
             return View(character);
         }
@@ -70,31 +83,31 @@ namespace Wprawka1.Controllers
         // GET: Characters/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var character = await _context.Characters.FindAsync(id);
+
             if (character == null)
-            {
                 return NotFound();
-            }
+
             ViewData["GuildId"] = new SelectList(_context.Guilds, "Id", "Name", character.GuildId);
             return View(character);
         }
 
         // POST: Characters/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Class,Level,GuildId")] Character character)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             if (id != character.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -106,16 +119,14 @@ namespace Wprawka1.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!CharacterExists(character.Id))
-                    {
                         return NotFound();
-                    }
                     else
-                    {
                         throw;
-                    }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["GuildId"] = new SelectList(_context.Guilds, "Id", "Name", character.GuildId);
             return View(character);
         }
@@ -123,18 +134,18 @@ namespace Wprawka1.Controllers
         // GET: Characters/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var character = await _context.Characters
                 .Include(c => c.Guild)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (character == null)
-            {
                 return NotFound();
-            }
 
             return View(character);
         }
@@ -144,11 +155,13 @@ namespace Wprawka1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (!IsLoggedIn())
+                return RedirectToAction("Login", "Account");
+
             var character = await _context.Characters.FindAsync(id);
+
             if (character != null)
-            {
                 _context.Characters.Remove(character);
-            }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

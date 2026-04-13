@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Wprawka1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260413164553_AddUser")]
+    [Migration("20260413175546_AddUser")]
     partial class AddUser
     {
         /// <inheritdoc />

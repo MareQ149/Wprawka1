@@ -1,0 +1,35 @@
+﻿@model User
+
+<h2>Rejestracja</h2>
+
+<form asp-action="Register" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div>
+        <label asp-for="Login"></label>
+        <input asp-for="Login" class="form-control" />
+    </div>
+
+    <div>
+        <label>Hasło</label>
+        <input name="password" type="password" class="form-control" />
+    </div>
+
+    <div>
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+
+    <div>
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Zarejestruj</button>
+</form>

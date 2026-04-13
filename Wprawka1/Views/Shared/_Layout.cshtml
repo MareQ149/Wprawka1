@@ -20,12 +20,51 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="Characters" asp-action="Index">Postacie</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Guilds" asp-action="Index">Gildie</a>
+                        </li>
+
+                    </ul>
+                    <ul class="navbar-nav ms-auto align-items-center">
+
+                        @if (Context.Request.Cookies["UserLogin"] == null)
+                        {
+                            <li class="nav-item me-2">
+                                <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">
+                                    Login
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="btn btn-primary" asp-controller="Account" asp-action="Register">
+                                    Register
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item me-2">
+                                <span class="badge bg-primary fs-6 px-3 py-2">
+                                    @Context.Request.Cookies["UserLogin"]
+                                </span>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="btn btn-danger" asp-controller="Account" asp-action="Logout">
+                                    Logout
+                                </a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>

@@ -7,8 +7,7 @@ public class User
     [Required]
     public string Login { get; set; }
 
-    [Required]
-    public string PasswordHash { get; set; }
+    public string? PasswordHash { get; set; }
 
     [Required]
     public string FirstName { get; set; }
